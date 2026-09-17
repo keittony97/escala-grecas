@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { iniciais } from "@/lib/utils";
 import { createClient } from "@/lib/supabase";
@@ -49,10 +50,11 @@ export function TopBar({
           <span className="px-space-xs py-0.5 bg-primary text-on-primary font-label-sm text-label-sm rounded uppercase">
             RR
           </span>
-          <div
+          <Link
+            href="/perfil"
             className="w-9 h-9 flex items-center justify-center"
-            aria-label={nomeGuerra ?? "Perfil"}
-            title={nomeGuerra ?? undefined}
+            aria-label="Meu perfil"
+            title={nomeGuerra ?? "Meu perfil"}
           >
             {fotoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element -- foto vem de storage externo (Supabase), sem domínio fixo para next/image
@@ -66,7 +68,7 @@ export function TopBar({
                 {iniciais(nomeGuerra ?? "??")}
               </span>
             )}
-          </div>
+          </Link>
           <button
             type="button"
             onClick={handleSair}

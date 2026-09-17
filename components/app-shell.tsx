@@ -12,6 +12,7 @@ const TITULOS: Record<string, string> = {
   "/trocas": "Trocas",
   "/historico": "Histórico",
   "/dashboard": "Painel",
+  "/perfil": "Meu Perfil",
 };
 
 function tituloDaRota(pathname: string): string {
