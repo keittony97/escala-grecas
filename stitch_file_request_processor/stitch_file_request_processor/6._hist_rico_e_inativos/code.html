@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Oswald:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error-container": "#93000a", "secondary-fixed-dim": "#ecc246", "primary-fixed-dim": "#b8cf88", "secondary-container": "#fed255", "tertiary-fixed-dim": "#ffb3af", "on-tertiary": "#ffffff", "on-error": "#ffffff", "primary-fixed": "#d4eca2", "on-surface-variant": "#45483c", "surface-container-high": "#ebe8e0", "tertiary-fixed": "#ffdad7", "on-primary": "#ffffff", "surface-container-low": "#f6f3eb", "surface": "#fcf9f1", "surface-container-lowest": "#ffffff", "background": "#fcf9f1", "surface-bright": "#fcf9f1", "secondary": "#755b00", "surface-variant": "#e5e2db", "surface-container-highest": "#e5e2db", "inverse-on-surface": "#f3f1e9", "error-container": "#ffdad6", "inverse-surface": "#31312c", "primary-container": "#4a5d23", "outline-variant": "#c6c8b8", "on-tertiary-fixed-variant": "#891b20", "on-surface": "#1c1c17", "surface-tint": "#52652a", "inverse-primary": "#b8cf88", "on-tertiary-fixed": "#410005", "surface-dim": "#dcdad2", "on-secondary-container": "#735a00", "on-primary-fixed": "#141f00", "on-tertiary-container": "#ffbcb8", "tertiary": "#7f1319", "on-primary-fixed-variant": "#3b4d14", "outline": "#76786b", "on-secondary-fixed": "#241a00", "error": "#ba1a1a", "on-background": "#1c1c17", "secondary-fixed": "#ffe08e", "tertiary-container": "#a02c2e", "on-secondary-fixed-variant": "#584400", "primary": "#33450d", "on-secondary": "#ffffff", "surface-container": "#f0eee6", "on-primary-container": "#bed58e" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.5rem", "space-md": "0.75rem", "gutter-desktop": "1.5rem", "margin": "1rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "space-xl": "1.75rem", "gutter": "1rem", "space-lg": "1.25rem" }, "fontFamily": { "headline-lg": ["Oswald"], "headline-md": ["Oswald"], "headline-sm": ["Oswald"], "label-lg": ["Oswald"], "display-mobile": ["Oswald"], "display": ["Oswald"], "body-md": ["Inter"], "body-lg": ["Inter"], "headline-lg-mobile": ["Oswald"], "label-md": ["Oswald"], "body-sm": ["Inter"], "label-sm": ["Oswald"] }, "fontSize": { "headline-lg": ["2rem", { "lineHeight": "1.2", "letterSpacing": "0.03em", "fontWeight": "600" }], "headline-md": ["1.25rem", { "lineHeight": "1.3", "letterSpacing": "0.02em", "fontWeight": "600" }], "headline-sm": ["1rem", { "lineHeight": "1.35", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-lg": ["0.875rem", { "lineHeight": "1", "letterSpacing": "0.06em", "fontWeight": "600" }], "display-mobile": ["2rem", { "lineHeight": "1.15", "letterSpacing": "0.04em", "fontWeight": "700" }], "display": ["3rem", { "lineHeight": "1.1", "letterSpacing": "0.05em", "fontWeight": "700" }], "body-md": ["0.875rem", { "lineHeight": "1.45", "fontWeight": "400" }], "body-lg": ["1.125rem", { "lineHeight": "1.5", "fontWeight": "400" }], "headline-lg-mobile": ["1.5rem", { "lineHeight": "1.25", "letterSpacing": "0.02em", "fontWeight": "600" }], "label-md": ["0.75rem", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600" }], "body-sm": ["0.75rem", { "lineHeight": "1.4", "fontWeight": "400" }], "label-sm": ["0.6875rem", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Voltar" class="w-11 h-11 flex items-center justify-center text-on-surface hover:text-primary transition-colors flex-shrink-0" onclick="history.back()"><span class="material-symbols-outlined">arrow_back</span></button><img alt="Logo Escala GRECAS" class="h-8 w-auto object-contain flex-shrink-0 hidden sm:block" src="https://lh3.googleusercontent.com/aida/AEtjO1VE3LWMW22S3koRVvp--CE4nGDaCPGjgQli6-Gu2gV6ig4HUWqI9m2dnGWBmyfgObgGiYFvZ5l-yk-oGBZTqzsFyRMQ59E8IhZbm25Nyf2ObNJd3tpMinKCOGhaK_NOYxQILDnwF-2gwXlNuSevzSaMLhMonVUSYAj_zVwKDBkwdaLj6mSQhp0FTJLSbcFkW4YJDMx6jCd5wGyNW_lLAUI0AKFvI_lLKSNJtvM2TmGU1YJsDpqnzWxuBOU"/><div class="flex flex-col min-w-0"><span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase truncate">6º BEC - GRECAS</span><h1 class="font-headline-sm text-headline-sm text-on-surface uppercase truncate">Detalhes Do Militar</h1></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="w-11 h-11 flex items-center justify-center"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFLKEhX4fNsw-EidqqeWCzdUP0Xti7j6BolpqRb6-MU5icnFxtyun0zCGLt-kqzw1UHfTAaRFVNKUciA_J3m9wlXaRnE82L9XQDplDPLfa1jF9NNa9L6FpcaQxCioL8ZbUhnBdUMcq3JdyBOHqk8w6qLP2tBQRDFI9CFjUBIfI3c6i-j0xUSExtCKy0xd-5QTXXRwl6fCA9gA5mXiHilOt0sKtHJAX5ITNUkH-VN2EsR4sSvosG1wC"/></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-surface flex-grow"><div class="flex flex-col w-full pb-10">
+<!-- Operational Notice Bar (Restricted Admin Clearance) -->
+<div class="w-full bg-surface-container-high px-gutter py-space-sm flex items-center justify-between shadow-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="material-symbols-outlined text-secondary text-sm flex-shrink-0" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase truncate">Acesso Restrito: Oficial de Dia / S1 Adm</span>
+</div>
+<span class="bg-surface text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded uppercase tracking-wider flex-shrink-0">
+      Arquivamento 6º BEC
+    </span>
+</div>
+<!-- Operational Context Header -->
+<div class="px-gutter pt-space-lg pb-space-md flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 bg-secondary rounded-full inline-block"></span>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-widest">Módulo de Retaguarda</span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface uppercase tracking-wide">
+      Histórico &amp; Inativos
+    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Militares desmobilizados e registro consolidado de missões e escalas anteriores.
+    </p>
+</div>
+<!-- Search & Filter Controls -->
+<div class="px-gutter mb-space-lg">
+<div class="bg-surface-container-low rounded p-space-sm shadow-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="w-full bg-transparent font-body-sm text-body-sm text-on-surface uppercase focus:outline-none placeholder:text-outline placeholder:font-label-sm" id="filterInput" onkeyup="filterSoldiers()" placeholder="BUSCAR POR NOME DE GUERRA OU MATRÍCULA..." type="text"/>
+<span class="material-symbols-outlined text-outline text-lg cursor-pointer hover:text-primary">tune</span>
+</div>
+</div>
+<!-- Main Content Layout (Vertical Stack for Mobile, Scalable Flow) -->
+<div class="px-gutter flex flex-col gap-space-xl">
+<!-- Section 1: Inactive Soldiers Directory -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary">person_off</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">
+            Soldados Inativos
+          </h3>
+</div>
+<span class="bg-surface-container-highest font-label-sm text-label-sm text-on-surface px-2 py-0.5 rounded">
+          2 Registros Ocultos
+        </span>
+</div>
+<!-- Inactive Soldiers List Cards -->
+<div class="flex flex-col gap-space-sm" id="soldierList">
+<!-- Soldier 1: Sd. Nascimento (Default Selected) -->
+<div class="soldier-card bg-surface-container-lowest rounded p-space-md shadow-sm cursor-pointer transition-all duration-150 flex flex-col gap-space-sm relative overflow-hidden ring-2 ring-primary" id="card-nascimento" onclick="selectSoldier('nascimento')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded bg-surface-container flex items-center justify-center flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of an active duty Brazilian army soldier in combat uniform, professional military photo style, warm natural daylight with disciplined stoic look" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA5e4eVArbxfCwCP1CN8uNLGdH5V1FfbQtZUxA-LTuc9MsFySd6DeVC7qPitnOFyZUkzeHbhUt2HRfE-YZIN5YvVrOusaDLd2IxXurYlvGFVGAMoNnuvVEgq6-Op9CnFebyZX1MLv_m-bugHzV2-sgWqgm5VO9pCW7kZiIUD7VSlauxkxhxdKPlAPPlhFrMshd_fwxfTm2zHKyIgBUcm6Gb508UbJ8VcVDyeprFUaJt5j8WUsggUg-"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">Sd. Nascimento</span>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">1102-6</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Ex-Piscineiro • Cia Cmdo / 6º BEC</span>
+</div>
+</div>
+<span class="bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm px-2 py-1 rounded uppercase tracking-wider flex-shrink-0 text-center">
+              Inativo / Baixa
+            </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs bg-surface-container-low px-space-sm py-1.5 rounded">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-sm">event_busy</span>
+<span>Desligamento: <strong class="text-on-surface">15/03/2024</strong></span>
+</div>
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold flex items-center">
+              Visualizando <span class="material-symbols-outlined text-sm ml-0.5">chevron_right</span>
+</span>
+</div>
+</div>
+<!-- Soldier 2: Sd. Pimentel -->
+<div class="soldier-card bg-surface-container-lowest rounded p-space-md shadow-sm cursor-pointer transition-all duration-150 flex flex-col gap-space-sm relative overflow-hidden" id="card-pimentel" onclick="selectSoldier('pimentel')">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded bg-surface-container flex items-center justify-center flex-shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a young Brazilian engineer infantry soldier in olive drab uniform, formal ID card military perspective, disciplined gaze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1P8pRHncoUnzQM9sa5NcqlwrDIekXZqieBFGvvV7qmbdmG7fU7ABPb5KcdKKitrvkIT-ONKTPVG7ueOs-z8Mrmr2FHf1GNG4CNQXhpH0qs_hSxc9xzL85mTs9HbV6D68CRxnuGjFehHPt5iAYKBaK7T7ixlfT_JE9xocTDtvOLyI4a8q4JExds8w25YSfqvMc7Uga_t8idpi233jLIxOywR817fnxW7POBjwRj23kxK80riqmXzKP"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">Sd. Pimentel</span>
+<span class="bg-surface-container-highest text-on-surface font-label-sm text-label-sm px-1.5 py-0.5 rounded font-bold">1088-2</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Ex-Permanência • 1ª Cia E Cnst</span>
+</div>
+</div>
+<span class="bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm px-2 py-1 rounded uppercase tracking-wider flex-shrink-0 text-center">
+              Inativo / Baixa
+            </span>
+</div>
+<div class="flex items-center justify-between pt-space-xs bg-surface-container-low px-space-sm py-1.5 rounded">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-sm">event_busy</span>
+<span>Desligamento: <strong class="text-on-surface">20/01/2024</strong></span>
+</div>
+<span class="font-label-sm text-label-sm text-outline uppercase font-bold flex items-center">
+              Abrir Ficha <span class="material-symbols-outlined text-sm ml-0.5">chevron_right</span>
+</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Detailed Military Record (Ficha Individual) -->
+<section class="bg-surface-container-lowest rounded p-space-md shadow-md flex flex-col gap-space-lg">
+<!-- Ficha Header Banner -->
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-base">military_tech</span> Ficha Individual Consolidada
+          </span>
+<span class="bg-error text-on-error font-label-sm text-label-sm px-2 py-0.5 rounded uppercase font-bold">
+            Baixado
+          </span>
+</div>
+<div class="flex items-center justify-between mt-1">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide" id="detail-name">
+              Sd. Nascimento
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="detail-subtext">
+              Matrícula GRECAS: <span class="font-semibold text-on-surface">1102-6</span> • Pel. Apoio Operacional
+            </p>
+</div>
+<div class="w-10 h-10 rounded bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined">badge</span>
+</div>
+</div>
+</div>
+<!-- General Statistics Grid (Bento Matrix) -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">
+          Balanço Total de Escalas Cumpridas
+        </span>
+<div class="grid grid-cols-3 gap-space-xs text-center">
+<!-- Total Servicos -->
+<div class="bg-surface-container rounded p-space-sm flex flex-col items-center justify-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold" id="stat-total">42</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">Total Dias</span>
+</div>
+<!-- Dia Preto -->
+<div class="bg-inverse-surface rounded p-space-sm flex flex-col items-center justify-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-inverse-on-surface font-bold" id="stat-preto">31</span>
+<span class="font-label-sm text-label-sm text-inverse-on-surface/80 uppercase mt-1">Dias Pretos</span>
+</div>
+<!-- Dia Vermelho -->
+<div class="bg-tertiary rounded p-space-sm flex flex-col items-center justify-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-tertiary font-bold" id="stat-vermelho">11</span>
+<span class="font-label-sm text-label-sm text-on-tertiary/90 uppercase mt-1">Dias Vermelhos</span>
+</div>
+</div>
+<!-- Tactical Balance Indicator Bar -->
+<div class="w-full bg-surface-variant h-2 rounded overflow-hidden flex mt-1">
+<div class="bg-inverse-surface h-full" style="width: 73.8%;" title="73.8% Dia Preto"></div>
+<div class="bg-tertiary h-full" style="width: 26.2%;" title="26.2% Dia Vermelho"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] text-on-surface-variant uppercase font-label-sm">
+<span>73.8% Escala Ordinária</span>
+<span>26.2% Prontidão / FDS</span>
+</div>
+</div>
+<!-- Timeline of Records -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase">
+            Linha do Tempo &amp; Ocorrências
+          </span>
+<span class="font-label-sm text-label-sm text-secondary font-bold uppercase">
+            Histórico Oficial
+          </span>
+</div>
+<!-- Timeline Items Container -->
+<div class="flex flex-col gap-space-sm" id="timeline-container">
+<!-- Event 1: Dia Preto -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-inverse-surface text-inverse-on-surface flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">verified</span>
+</div>
+<div class="flex flex-col min-w-0 flex-grow">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase text-sm">Serviço Cumprido</span>
+<span class="bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm px-1.5 py-0.2 rounded uppercase">Dia Preto</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Posto de Piscina / Guarnição de Serviço</span>
+<span class="font-label-sm text-label-sm text-secondary mt-1">14/03/2024 • Quarta-feira</span>
+</div>
+</div>
+<!-- Event 2: Dia Vermelho -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-tertiary text-on-tertiary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">shield</span>
+</div>
+<div class="flex flex-col min-w-0 flex-grow">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase text-sm">Serviço Cumprido</span>
+<span class="bg-tertiary text-on-tertiary font-label-sm text-label-sm px-1.5 py-0.2 rounded uppercase">Dia Vermelho</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Guarda do Aquartelamento Central</span>
+<span class="font-label-sm text-label-sm text-tertiary mt-1 font-bold">02/03/2024 • Sábado (Prontidão)</span>
+</div>
+</div>
+<!-- Event 3: Afastamento / Dispensa -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">beach_access</span>
+</div>
+<div class="flex flex-col min-w-0 flex-grow">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase text-sm">Afastamento • Dispensa</span>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-1.5 py-0.2 rounded uppercase font-bold">Regulamentar</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Dispensa como recompensa por mérito operacional</span>
+<span class="font-label-sm text-label-sm text-outline mt-1">10/02/2024 a 15/02/2024 (5 dias)</span>
+</div>
+</div>
+<!-- Event 4: Permuta / Troca -->
+<div class="bg-surface-container-low rounded p-space-sm flex items-start gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-base">swap_horiz</span>
+</div>
+<div class="flex flex-col min-w-0 flex-grow">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface uppercase text-sm">Troca com Sd. Barroso</span>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm px-1.5 py-0.2 rounded uppercase">Compensada</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Autorizado pelo Chefe da 1ª Seção (Boletim Interno nº 012)</span>
+<span class="font-label-sm text-label-sm text-primary mt-1">15/01/2024 • Segunda-feira</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Panel Buttons -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Action 1: Reativar Militar -->
+<button class="w-full bg-primary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider py-3.5 px-space-md rounded flex items-center justify-center gap-space-sm hover:opacity-95 active:scale-[0.99] transition shadow-md" onclick="confirmReactivate()" type="button">
+<span class="material-symbols-outlined">restart_alt</span>
+<span>Reativar Militar para Escala Ativa</span>
+</button>
+<!-- Action 2: Exportar PDF -->
+<button class="w-full bg-surface-container text-on-surface font-headline-sm text-headline-sm uppercase tracking-wider py-3 px-space-md rounded flex items-center justify-center gap-space-sm hover:bg-surface-container-high active:scale-[0.99] transition" onclick="exportPDF()" type="button">
+<span class="material-symbols-outlined text-secondary">picture_as_pdf</span>
+<span>Exportar Ficha Individual em PDF</span>
+</button>
+</div>
+</section>
+<!-- Administrative Audit Notice -->
+<div class="bg-surface-container-low rounded p-space-md flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline">history_edu</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Qualquer alteração ou reativação de militares inativos gera registro perpétuo no Livro de Partes Diárias do 6º BEC.
+      </p>
+</div>
+</div>
+<!-- Micro-interaction feedback toast (hidden initially) -->
+<div class="fixed bottom-6 left-4 right-4 bg-inverse-surface text-inverse-on-surface p-space-md rounded shadow-xl flex items-center justify-between transform translate-y-28 opacity-0 transition-all duration-300 z-50" id="statusToast">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-fixed" id="toastIcon">check_circle</span>
+<span class="font-body-sm text-body-sm font-semibold" id="toastMessage">Operação realizada com sucesso.</span>
+</div>
+<button class="text-inverse-on-surface/70 hover:text-inverse-on-surface font-label-sm uppercase" onclick="hideToast()">Fechar</button>
+</div>
+</div>
+<script>
+  // Tactical data store for inactive military roster
+  const soldierRecords = {
+    nascimento: {
+      name: 'Sd. Nascimento',
+      number: '1102-6',
+      unit: 'Pel. Apoio Operacional &bull; Cia Cmdo',
+      total: 42,
+      preto: 31,
+      vermelho: 11,
+      pretoWidth: '73.8%',
+      vermelhoWidth: '26.2%',
+      events: [
+        {
+          title: 'Serviço Cumprido',
+          tag: 'Dia Preto',
+          tagClass: 'bg-inverse-surface text-inverse-on-surface',
+          icon: 'verified',
+          iconBg: 'bg-inverse-surface text-inverse-on-surface',
+          detail: 'Posto de Piscina / Guarnição de Serviço',
+          date: '14/03/2024 • Quarta-feira',
+          dateClass: 'text-secondary'
+        },
+        {
+          title: 'Serviço Cumprido',
+          tag: 'Dia Vermelho',
+          tagClass: 'bg-tertiary text-on-tertiary',
+          icon: 'shield',
+          iconBg: 'bg-tertiary text-on-tertiary',
+          detail: 'Guarda do Aquartelamento Central',
+          date: '02/03/2024 • Sábado (Prontidão)',
+          dateClass: 'text-tertiary font-bold'
+        },
+        {
+          title: 'Afastamento • Dispensa',
+          tag: 'Regulamentar',
+          tagClass: 'bg-secondary-container text-on-secondary-container font-bold',
+          icon: 'beach_access',
+          iconBg: 'bg-secondary-container text-on-secondary-container',
+          detail: 'Dispensa como recompensa por mérito operacional',
+          date: '10/02/2024 a 15/02/2024 (5 dias)',
+          dateClass: 'text-outline'
+        },
+        {
+          title: 'Troca com Sd. Barroso',
+          tag: 'Compensada',
+          tagClass: 'bg-primary text-on-primary',
+          icon: 'swap_horiz',
+          iconBg: 'bg-primary-container text-on-primary-container',
+          detail: 'Autorizado pelo Chefe da 1ª Seção (Boletim Interno nº 012)',
+          date: '15/01/2024 • Segunda-feira',
+          dateClass: 'text-primary'
+        }
+      ]
+    },
+    pimentel: {
+      name: 'Sd. Pimentel',
+      number: '1088-2',
+      unit: '1ª Cia E Cnst &bull; Pavimentação',
+      total: 36,
+      preto: 28,
+      vermelho: 8,
+      pretoWidth: '77.7%',
+      vermelhoWidth: '22.3%',
+      events: [
+        {
+          title: 'Serviço Cumprido',
+          tag: 'Dia Preto',
+          tagClass: 'bg-inverse-surface text-inverse-on-surface',
+          icon: 'verified',
+          iconBg: 'bg-inverse-surface text-inverse-on-surface',
+          detail: 'Permanência à Companhia de Engenharia',
+          date: '19/01/2024 • Sexta-feira',
+          dateClass: 'text-secondary'
+        },
+        {
+          title: 'Serviço Cumprido',
+          tag: 'Dia Vermelho',
+          tagClass: 'bg-tertiary text-on-tertiary',
+          icon: 'shield',
+          iconBg: 'bg-tertiary text-on-tertiary',
+          detail: 'Sentinela do Portão das Armas',
+          date: '07/01/2024 • Domingo',
+          dateClass: 'text-tertiary font-bold'
+        },
+        {
+          title: 'Serviço Cumprido',
+          tag: 'Dia Preto',
+          tagClass: 'bg-inverse-surface text-inverse-on-surface',
+          icon: 'verified',
+          iconBg: 'bg-inverse-surface text-inverse-on-surface',
+          detail: 'Permanência à Companhia de Engenharia',
+          date: '28/12/2023 • Quinta-feira',
+          dateClass: 'text-secondary'
+        }
+      ]
+    }
+  };
+
+  let activeSoldierId = 'nascimento';
+
+  function selectSoldier(id) {
+    activeSoldierId = id;
+    const data = soldierRecords[id];
+    if (!data) return;
+
+    // Toggle card styles
+    document.querySelectorAll('.soldier-card').forEach(card => {
+      card.classList.remove('ring-2', 'ring-primary');
+    });
+    const currentCard = document.getElementById('card-' + id);
+    if (currentCard) {
+      currentCard.classList.add('ring-2', 'ring-primary');
+    }
+
+    // Update Header details
+    document.getElementById('detail-name').innerText = data.name;
+    document.getElementById('detail-subtext').innerHTML = 'Matrícula GRECAS: <span class="font-semibold text-on-surface">' + data.number + '</span> &bull; ' + data.unit;
+
+    // Update stats
+    document.getElementById('stat-total').innerText = data.total;
+    document.getElementById('stat-preto').innerText = data.preto;
+    document.getElementById('stat-vermelho').innerText = data.vermelho;
+
+    // Render timeline items
+    const container = document.getElementById('timeline-container');
+    container.innerHTML = '';
+
+    data.events.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'bg-surface-container-low rounded p-space-sm flex items-start gap-space-sm';
+      el.innerHTML = `
+        <div class="w-8 h-8 rounded ${item.iconBg} flex items-center justify-center flex-shrink-0 mt-0.5">
+          <span class="material-symbols-outlined text-base">${item.icon}</span>
+        </div>
+        <div class="flex flex-col min-w-0 flex-grow">
+          <div class="flex items-center justify-between">
+            <span class="font-headline-sm text-headline-sm text-on-surface uppercase text-sm">${item.title}</span>
+            <span class="${item.tagClass} font-label-sm text-label-sm px-1.5 py-0.2 rounded uppercase">${item.tag}</span>
+          </div>
+          <span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">${item.detail}</span>
+          <span class="font-label-sm text-label-sm ${item.dateClass} mt-1">${item.date}</span>
+        </div>
+      `;
+      container.appendChild(el);
+    });
+
+    showToast('Ficha de ' + data.name + ' carregada.', 'badge');
+  }
+
+  function confirmReactivate() {
+    const data = soldierRecords[activeSoldierId];
+    if (confirm('Atenção: Confirmar a REATIVAÇÃO de ' + data.name + ' (' + data.number + ') para a escala ativa do 6º BEC?')) {
+      showToast(data.name + ' foi reintegrado à Escala Ativa.', 'how_to_reg');
+    }
+  }
+
+  function exportPDF() {
+    const data = soldierRecords[activeSoldierId];
+    showToast('Gerando Ficha Individual de ' + data.name + ' em PDF...', 'download');
+    setTimeout(() => {
+      showToast('Ficha exportada com sucesso.', 'task_alt');
+    }, 1500);
+  }
+
+  function filterSoldiers() {
+    const query = document.getElementById('filterInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.soldier-card');
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.style.display = text.includes(query) ? 'flex' : 'none';
+    });
+  }
+
+  let toastTimer;
+  function showToast(msg, icon) {
+    const toast = document.getElementById('statusToast');
+    const msgEl = document.getElementById('toastMessage');
+    const iconEl = document.getElementById('toastIcon');
+    if (!toast || !msgEl) return;
+
+    msgEl.innerText = msg;
+    if (icon && iconEl) iconEl.innerText = icon;
+
+    toast.classList.remove('translate-y-28', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      hideToast();
+    }, 3200);
+  }
+
+  function hideToast() {
+    const toast = document.getElementById('statusToast');
+    if (!toast) return;
+    toast.classList.add('translate-y-28', 'opacity-0');
+    toast.classList.remove('translate-y-0', 'opacity-100');
+  }
+</script></main></body></html>

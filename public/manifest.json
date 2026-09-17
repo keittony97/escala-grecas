@@ -1,0 +1,32 @@
+{
+  "name": "Escala GRECAS",
+  "short_name": "GRECAS",
+  "description": "Sistema de gestão da escala de serviço do 6º BEC no clube GRECAS",
+  "start_url": "/escala",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fcf9f1",
+  "theme_color": "#33450d",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
