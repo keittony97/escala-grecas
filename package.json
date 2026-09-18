@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_EXTRA_CA_CERTS=.certs/kaspersky-root-ca.pem next dev",
-    "build": "cross-env NODE_EXTRA_CA_CERTS=.certs/kaspersky-root-ca.pem next build",
-    "start": "cross-env NODE_EXTRA_CA_CERTS=.certs/kaspersky-root-ca.pem next start",
+    "dev": "node scripts/with-corporate-ca.js next dev",
+    "build": "node scripts/with-corporate-ca.js next build",
+    "start": "node scripts/with-corporate-ca.js next start",
     "lint": "eslint"
   },
   "dependencies": {
@@ -24,7 +24,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.5",
     "tailwindcss": "^4.3.3",
