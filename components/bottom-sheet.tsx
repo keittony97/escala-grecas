@@ -18,7 +18,7 @@ export function BottomSheet({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-inverse-surface/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[60] flex items-end justify-center bg-inverse-surface/60 backdrop-blur-sm">
       <div className="w-full max-w-lg bg-surface-container-lowest rounded-t-xl p-gutter flex flex-col gap-space-md shadow-2xl max-h-[85vh] overflow-y-auto">
         <div className="w-12 h-1 bg-surface-container-highest rounded-full self-center" />
         <div className="flex items-center justify-between">

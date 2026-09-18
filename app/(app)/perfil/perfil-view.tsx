@@ -4,23 +4,18 @@ import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
 import { createClient } from "@/lib/supabase";
-import { iniciais, normalizarUsuario } from "@/lib/utils";
-import { atualizarMinhaSenha, atualizarMeuLogin, atualizarMinhaFoto } from "@/lib/actions/perfil";
+import { iniciais } from "@/lib/utils";
+import { atualizarMinhaSenha, atualizarMinhaFoto } from "@/lib/actions/perfil";
 import type { Perfil } from "@/types";
 
 const TAMANHO_MAX_FOTO = 5 * 1024 * 1024;
 
-export function PerfilView({ perfil, usuarioAtual }: { perfil: Perfil; usuarioAtual: string }) {
+export function PerfilView({ perfil }: { perfil: Perfil }) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fotoUrl, setFotoUrl] = useState(perfil.foto_url);
   const [enviandoFoto, setEnviandoFoto] = useState(false);
   const [erroFoto, setErroFoto] = useState<string | null>(null);
-
-  const [novoUsuario, setNovoUsuario] = useState(usuarioAtual);
-  const [erroLogin, setErroLogin] = useState<string | null>(null);
-  const [sucessoLogin, setSucessoLogin] = useState<string | null>(null);
-  const [pendingLogin, startLoginTransition] = useTransition();
 
   const [erroSenha, setErroSenha] = useState<string | null>(null);
   const [sucessoSenha, setSucessoSenha] = useState<string | null>(null);
@@ -72,22 +67,6 @@ export function PerfilView({ perfil, usuarioAtual }: { perfil: Perfil; usuarioAt
     } finally {
       setEnviandoFoto(false);
     }
-  }
-
-  async function handleAlterarLogin(formData: FormData) {
-    setErroLogin(null);
-    setSucessoLogin(null);
-    const senhaAtual = String(formData.get("senha_atual_login") ?? "");
-
-    startLoginTransition(async () => {
-      const res = await atualizarMeuLogin(novoUsuario, senhaAtual);
-      if (res?.erro) {
-        setErroLogin(res.erro);
-        return;
-      }
-      setSucessoLogin(`Login atualizado para "${res.usuario}". Use-o no próximo acesso.`);
-      router.refresh();
-    });
   }
 
   async function handleAlterarSenha(formData: FormData) {
@@ -154,57 +133,20 @@ export function PerfilView({ perfil, usuarioAtual }: { perfil: Perfil; usuarioAt
         {erroFoto && <p className="font-body-sm text-body-sm text-error text-center">{erroFoto}</p>}
       </div>
 
-      <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+      <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
         <div className="flex items-center gap-space-xs">
           <Icon name="badge" className="text-primary text-[20px]" />
           <h3 className="font-headline-sm text-headline-sm text-on-surface uppercase">
             Nome de Guerra / Login
           </h3>
         </div>
-        <form action={handleAlterarLogin} className="flex flex-col gap-space-sm">
-          <div className="flex flex-col gap-1">
-            <label className="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">
-              Novo Login
-            </label>
-            <input
-              type="text"
-              value={novoUsuario}
-              onChange={(e) => setNovoUsuario(e.target.value)}
-              className="w-full px-3 py-2.5 bg-surface-container-lowest rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-            />
-            {novoUsuario && normalizarUsuario(novoUsuario) !== usuarioAtual && (
-              <p className="font-body-sm text-body-sm text-on-surface-variant">
-                Novo login será: <strong>{normalizarUsuario(novoUsuario)}</strong>
-              </p>
-            )}
-          </div>
-          <div className="flex flex-col gap-1">
-            <label className="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">
-              Senha Atual (confirmação)
-            </label>
-            <input
-              name="senha_atual_login"
-              type="password"
-              required
-              placeholder="Digite sua senha para confirmar"
-              className="w-full px-3 py-2.5 bg-surface-container-lowest rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-            />
-          </div>
-          {erroLogin && <p className="font-body-sm text-body-sm text-error">{erroLogin}</p>}
-          {sucessoLogin && (
-            <p className="font-body-sm text-body-sm text-primary flex items-center gap-1">
-              <Icon name="check_circle" className="text-[16px]" />
-              {sucessoLogin}
-            </p>
-          )}
-          <button
-            type="submit"
-            disabled={pendingLogin || normalizarUsuario(novoUsuario) === usuarioAtual}
-            className="self-start px-space-md py-2 bg-primary text-on-primary font-label-sm text-label-sm uppercase rounded shadow-sm hover:bg-primary-container transition-colors disabled:opacity-50"
-          >
-            {pendingLogin ? "Salvando..." : "Salvar Novo Login"}
-          </button>
-        </form>
+        <div className="bg-surface-container-lowest rounded p-space-sm flex items-start gap-2">
+          <Icon name="lock" className="text-on-surface-variant text-[18px] flex-shrink-0 mt-0.5" />
+          <span className="font-body-sm text-body-sm text-on-surface-variant">
+            Seu login é <strong>{perfil.nome_guerra}</strong>. Apenas o administrador pode alterar o
+            nome de guerra / login de um soldado.
+          </span>
+        </div>
       </div>
 
       <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
