@@ -33,6 +33,7 @@ export interface Database {
           id: string;
           nome_guerra: string;
           nome_completo: string | null;
+          patente: string;
           funcao: Funcao;
           ativo: boolean;
           data_entrada: string;
@@ -45,6 +46,7 @@ export interface Database {
           id?: string;
           nome_guerra: string;
           nome_completo?: string | null;
+          patente?: string;
           funcao: Funcao;
           ativo?: boolean;
           data_entrada: string;

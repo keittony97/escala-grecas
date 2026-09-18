@@ -73,3 +73,25 @@ export function normalizarUsuario(nomeGuerra: string): string {
 export function emailSinteticoDeUsuario(nomeGuerra: string): string {
   return `${normalizarUsuario(nomeGuerra)}@${DOMINIO_LOGIN}`;
 }
+
+export const PATENTES = [
+  { value: "soldado", label: "Soldado", abreviacao: "Sd" },
+  { value: "cabo", label: "Cabo", abreviacao: "Cb" },
+  { value: "terceiro_sargento", label: "3º Sargento", abreviacao: "3º Sgt" },
+  { value: "segundo_sargento", label: "2º Sargento", abreviacao: "2º Sgt" },
+  { value: "primeiro_sargento", label: "1º Sargento", abreviacao: "1º Sgt" },
+  { value: "subtenente", label: "Subtenente", abreviacao: "ST" },
+  { value: "aspirante", label: "Aspirante a Oficial", abreviacao: "Asp" },
+  { value: "segundo_tenente", label: "2º Tenente", abreviacao: "2º Ten" },
+  { value: "primeiro_tenente", label: "1º Tenente", abreviacao: "1º Ten" },
+  { value: "capitao", label: "Capitão", abreviacao: "Cap" },
+  { value: "major", label: "Major", abreviacao: "Maj" },
+  { value: "tenente_coronel", label: "Tenente-Coronel", abreviacao: "TC" },
+  { value: "coronel", label: "Coronel", abreviacao: "Cel" },
+] as const;
+
+export type Patente = (typeof PATENTES)[number]["value"];
+
+export function abreviacaoPatente(patente: string | null | undefined): string {
+  return PATENTES.find((p) => p.value === patente)?.abreviacao ?? "Sd";
+}

@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
-import { formatarDataBR } from "@/lib/utils";
+import { formatarDataBR, abreviacaoPatente } from "@/lib/utils";
 import { criarTroca, homologarTroca } from "@/lib/actions/trocas";
 import { sugerirSubstitutos } from "@/lib/escala/folgas";
 import type { Soldado } from "@/types";
@@ -132,7 +132,7 @@ export function TrocasView({
                 </option>
                 {soldados.map((s) => (
                   <option key={s.id} value={s.id}>
-                    Sd. {s.nome_guerra} ({s.funcao === "piscineiro" ? "Piscineiro" : "Permanência"})
+                    {abreviacaoPatente(s.patente)}. {s.nome_guerra} ({s.funcao === "piscineiro" ? "Piscineiro" : "Permanência"})
                   </option>
                 ))}
               </select>
@@ -153,7 +153,7 @@ export function TrocasView({
                 </option>
                 {sugestoes.map((s, idx) => (
                   <option key={s.id} value={s.id}>
-                    Sd. {s.nome_guerra} {idx === 0 ? "— maior folga acumulada (sugerido)" : ""}
+                    {abreviacaoPatente(s.patente)}. {s.nome_guerra} {idx === 0 ? "— maior folga acumulada (sugerido)" : ""}
                   </option>
                 ))}
               </select>
@@ -240,7 +240,10 @@ export function TrocasView({
                     </span>
                   </div>
                   <span className="font-headline-sm text-headline-sm text-on-surface uppercase mt-1">
-                    Sd. {ausenteSoldado?.nome_guerra ?? "?"} ➔ Sd. {substitutoSoldado?.nome_guerra ?? "?"}
+                    {ausenteSoldado ? `${abreviacaoPatente(ausenteSoldado.patente)}. ` : ""}
+                    {ausenteSoldado?.nome_guerra ?? "?"} ➔{" "}
+                    {substitutoSoldado ? `${abreviacaoPatente(substitutoSoldado.patente)}. ` : ""}
+                    {substitutoSoldado?.nome_guerra ?? "?"}
                   </span>
                 </div>
                 <span

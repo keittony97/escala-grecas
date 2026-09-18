@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
-import { formatarDataBR, iniciais } from "@/lib/utils";
+import { formatarDataBR, iniciais, abreviacaoPatente } from "@/lib/utils";
 import { criarAfastamento } from "@/lib/actions/afastamentos";
 import type { Soldado } from "@/types";
 import type { Afastamento } from "@/lib/data/afastamentos";
@@ -108,7 +108,7 @@ export function AfastamentosView({
               </option>
               {soldados.map((s) => (
                 <option key={s.id} value={s.id}>
-                  Sd. {s.nome_guerra} ({s.funcao === "piscineiro" ? "Piscineiro" : "Permanência"})
+                  {abreviacaoPatente(s.patente)}. {s.nome_guerra} ({s.funcao === "piscineiro" ? "Piscineiro" : "Permanência"})
                 </option>
               ))}
             </select>
@@ -225,7 +225,8 @@ export function AfastamentosView({
                   </div>
                   <div>
                     <span className="font-body-md text-body-md font-semibold text-on-surface">
-                      Sd. {soldado?.nome_guerra ?? "Ex-militar"}
+                      {soldado ? `${abreviacaoPatente(soldado.patente)}. ` : ""}
+                      {soldado?.nome_guerra ?? "Ex-militar"}
                     </span>
                   </div>
                 </div>

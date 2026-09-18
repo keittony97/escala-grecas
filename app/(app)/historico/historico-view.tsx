@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
-import { formatarDataBR, iniciais } from "@/lib/utils";
+import { formatarDataBR, iniciais, abreviacaoPatente } from "@/lib/utils";
 import { reativarSoldado } from "@/lib/actions/soldados";
 import type { Soldado } from "@/types";
 import type { EventoTimeline } from "@/lib/historico/timeline";
@@ -35,7 +35,11 @@ export function HistoricoView({
 
   function handleReativar() {
     if (!selecionado) return;
-    if (!confirm(`Confirmar a REATIVAÇÃO de Sd. ${selecionado.nome_guerra} para a escala ativa?`)) {
+    if (
+      !confirm(
+        `Confirmar a REATIVAÇÃO de ${abreviacaoPatente(selecionado.patente)}. ${selecionado.nome_guerra} para a escala ativa?`
+      )
+    ) {
       return;
     }
     startTransition(async () => {
@@ -108,7 +112,7 @@ export function HistoricoView({
                     </div>
                     <div className="flex flex-col min-w-0">
                       <span className="font-headline-sm text-headline-sm text-on-surface uppercase">
-                        Sd. {s.nome_guerra}
+                        {abreviacaoPatente(s.patente)}. {s.nome_guerra}
                       </span>
                       <span className="font-body-sm text-body-sm text-on-surface-variant truncate">
                         Ex-{s.funcao === "piscineiro" ? "Piscineiro" : "Permanência"}
@@ -158,7 +162,7 @@ export function HistoricoView({
               <div className="flex items-center justify-between mt-1">
                 <div>
                   <h4 className="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
-                    Sd. {selecionado.nome_guerra}
+                    {abreviacaoPatente(selecionado.patente)}. {selecionado.nome_guerra}
                   </h4>
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
                     {selecionado.funcao === "piscineiro" ? "Piscineiro" : "Permanência"} • Entrada em{" "}

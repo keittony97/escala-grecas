@@ -4,7 +4,7 @@ import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
 import { BottomSheet } from "@/components/bottom-sheet";
-import { iniciais, formatarDataBR } from "@/lib/utils";
+import { iniciais, formatarDataBR, abreviacaoPatente, PATENTES } from "@/lib/utils";
 import { criarSoldado, atualizarSoldado, inativarSoldado } from "@/lib/actions/soldados";
 import { criarAcessoSoldado, redefinirSenhaSoldado } from "@/lib/actions/acessos";
 import { normalizarUsuario } from "@/lib/utils";
@@ -22,7 +22,9 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
   const [modalEditar, setModalEditar] = useState<Soldado | null>(null);
   const [modalInativar, setModalInativar] = useState<Soldado | null>(null);
   const [modalAcesso, setModalAcesso] = useState<Soldado | null>(null);
-  const [acessoCriado, setAcessoCriado] = useState<{ nomeGuerra: string; usuario: string } | null>(null);
+  const [acessoCriado, setAcessoCriado] = useState<{ nomeGuerra: string; patente: string; usuario: string } | null>(
+    null
+  );
   const [erro, setErro] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -105,6 +107,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
         setModalAcesso(null);
         setAcessoCriado({
           nomeGuerra: soldado.nome_guerra,
+          patente: soldado.patente,
           usuario: res.usuario ?? normalizarUsuario(soldado.nome_guerra),
         });
       }
@@ -189,7 +192,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
                 <div className="flex flex-col min-w-0">
                   <div className="flex items-center gap-space-xs flex-wrap">
                     <span className="font-headline-sm text-headline-sm text-on-surface uppercase tracking-wide">
-                      Sd. {soldado.nome_guerra}
+                      {abreviacaoPatente(soldado.patente)}. {soldado.nome_guerra}
                     </span>
                     <span className="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase">
                       6º BEC
@@ -243,7 +246,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
       <BottomSheet
         open={!!soldadoAcoes}
         onClose={() => setSoldadoAcoes(null)}
-        title={soldadoAcoes ? `Sd. ${soldadoAcoes.nome_guerra}` : ""}
+        title={soldadoAcoes ? `${abreviacaoPatente(soldadoAcoes.patente)}. ${soldadoAcoes.nome_guerra}` : ""}
         icon="badge"
       >
         <div className="flex flex-col gap-1">
@@ -330,6 +333,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
         <form action={handleAdicionar} className="flex flex-col gap-space-md">
           <CampoTexto label="Nome de Guerra" name="nome_guerra" placeholder="EX: SOUZA" required uppercase />
           <CampoTexto label="Nome Completo (opcional)" name="nome_completo" placeholder="Nome completo" />
+          <CampoPatente name="patente" defaultValue="soldado" />
           <div className="flex flex-col gap-1">
             <label className="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">
               Função Operacional
@@ -394,6 +398,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
               name="nome_completo"
               defaultValue={modalEditar.nome_completo ?? ""}
             />
+            <CampoPatente name="patente" defaultValue={modalEditar.patente} />
             <div className="flex flex-col gap-1">
               <label className="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">
                 Função Operacional
@@ -490,7 +495,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
 
       {/* Confirmação de acesso criado */}
       {acessoCriado && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-gutter bg-inverse-surface/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center px-gutter bg-inverse-surface/60 backdrop-blur-sm">
           <div className="w-full max-w-sm bg-surface-container-lowest rounded-xl p-gutter shadow-2xl flex flex-col gap-space-md">
             <div className="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center mx-auto">
               <Icon name="check_circle" className="text-[28px]" />
@@ -500,7 +505,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
                 Acesso Criado
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant">
-                Sd. {acessoCriado.nomeGuerra} já pode entrar no sistema com:
+                {abreviacaoPatente(acessoCriado.patente)}. {acessoCriado.nomeGuerra} já pode entrar no sistema com:
               </p>
             </div>
             <div className="bg-surface-container-low p-space-md rounded flex flex-col gap-1 text-center">
@@ -522,7 +527,7 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
 
       {/* Confirmação de inativação */}
       {modalInativar && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-gutter bg-inverse-surface/60 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center px-gutter bg-inverse-surface/60 backdrop-blur-sm">
           <div className="w-full max-w-sm bg-surface-container-lowest rounded-xl p-gutter shadow-2xl flex flex-col gap-space-md">
             <div className="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto">
               <Icon name="person_off" className="text-[28px]" />
@@ -533,7 +538,10 @@ export function SoldadosView({ soldadosIniciais }: { soldadosIniciais: Soldado[]
               </h3>
               <p className="font-body-md text-body-md text-on-surface-variant">
                 Tem certeza que deseja inativar{" "}
-                <strong className="text-on-surface">Sd. {modalInativar.nome_guerra}</strong>? Ele será
+                <strong className="text-on-surface">
+                  {abreviacaoPatente(modalInativar.patente)}. {modalInativar.nome_guerra}
+                </strong>
+                ? Ele será
                 movido para o histórico e removido das próximas escalas.
               </p>
             </div>
@@ -601,6 +609,27 @@ function CampoTexto({
           uppercase ? "uppercase" : ""
         }`}
       />
+    </div>
+  );
+}
+
+function CampoPatente({ name, defaultValue }: { name: string; defaultValue?: string }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <label className="font-label-sm text-label-sm uppercase text-on-surface-variant font-semibold">
+        Patente
+      </label>
+      <select
+        name={name}
+        defaultValue={defaultValue ?? "soldado"}
+        className="w-full px-3 py-2.5 bg-surface-container-low rounded text-on-surface font-body-md text-body-md focus:outline-none focus:bg-surface-container-lowest shadow-sm"
+      >
+        {PATENTES.map((p) => (
+          <option key={p.value} value={p.value}>
+            {p.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

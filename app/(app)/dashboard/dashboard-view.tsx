@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/icon";
+import { abreviacaoPatente } from "@/lib/utils";
 import type { Soldado } from "@/types";
 import type { Funcao } from "@/types/database";
 
@@ -211,7 +212,7 @@ export function DashboardView({
                         <span className="w-4 h-4 bg-secondary text-surface rounded-full flex items-center justify-center font-label-sm text-label-sm">
                           {idx + 1}
                         </span>
-                        Sd. {r.soldado.nome_guerra}
+                        {abreviacaoPatente(r.soldado.patente)}. {r.soldado.nome_guerra}
                       </span>
                       <span className="font-label-md text-label-md text-primary font-bold">
                         {r.total} turnos
@@ -254,7 +255,7 @@ export function DashboardView({
                       <span className="w-4 h-4 bg-tertiary text-on-tertiary rounded-full flex items-center justify-center font-label-sm text-label-sm">
                         {idx + 1}
                       </span>
-                      Sd. {r.soldado.nome_guerra}
+                      {abreviacaoPatente(r.soldado.patente)}. {r.soldado.nome_guerra}
                     </span>
                     <span className="font-label-md text-label-md text-tertiary font-bold">
                       {r.quantidade} {r.quantidade === 1 ? "ocorrência" : "ocorrências"} • {r.totalDias}{" "}
