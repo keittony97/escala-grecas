@@ -25,7 +25,7 @@ export function AdminContactCard() {
             Erivan Arraiz
           </h4>
           <p className="font-body-sm text-body-sm text-on-surface-variant">
-            Administrador Geral GRECAS
+            Secretário Administrativo
           </p>
         </div>
       </div>

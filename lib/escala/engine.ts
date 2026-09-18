@@ -139,6 +139,37 @@ export interface DiaEscalaCalculado {
   data: string;
   tipoDia: TipoDia;
   soldado: Soldado | null;
+  manual?: boolean;
+}
+
+export interface OverrideEscala {
+  funcao: Funcao;
+  data: string;
+  soldado_id: string;
+}
+
+/**
+ * Sobrepõe ajustes manuais (organização manual do administrador ou trocas
+ * homologadas) sobre a escala calculada pelo rodízio automático. Um dia sem
+ * ajuste continua saindo do cálculo algorítmico; um dia com ajuste passa a
+ * exibir o soldado definido manualmente, marcado com `manual: true`.
+ */
+export function aplicarOverrides(
+  dias: DiaEscalaCalculado[],
+  overrides: OverrideEscala[],
+  funcao: Funcao,
+  soldadosPorId: Map<string, Soldado>
+): DiaEscalaCalculado[] {
+  const overridesPorData = new Map(
+    overrides.filter((o) => o.funcao === funcao).map((o) => [o.data, o.soldado_id])
+  );
+  if (overridesPorData.size === 0) return dias;
+
+  return dias.map((dia) => {
+    const soldadoId = overridesPorData.get(dia.data);
+    if (!soldadoId) return dia;
+    return { ...dia, soldado: soldadosPorId.get(soldadoId) ?? null, manual: true };
+  });
 }
 
 /** Gera a escala calculada (preto/vermelho) para cada dia de um intervalo [inicio, fim]. */

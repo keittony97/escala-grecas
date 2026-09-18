@@ -1,18 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { addWeeks, addMonths, subWeeks, subMonths, format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Icon } from "@/components/icon";
 import { BadgeTipoDia } from "@/components/badge-tipo-dia";
 import { AdminContactCard } from "@/components/admin-contact-card";
-import { iniciais, formatarDataBR, nomeDiaSemana } from "@/lib/utils";
-import { calcularEscaladoDoDia } from "@/lib/escala/engine";
+import { EscalaManualModal } from "./escala-manual-modal";
+import { iniciais, formatarDataBR, nomeDiaSemana, abreviacaoPatente } from "@/lib/utils";
+import { calcularEscaladoDoDia, type AfastamentoPeriodo, type OverrideEscala } from "@/lib/escala/engine";
 import type { Soldado } from "@/types";
 import type { Funcao, TipoDia } from "@/types/database";
 
-export type SoldadoComDias = Soldado & { diasEscalados: { data: string; tipoDia: TipoDia }[] };
+export type SoldadoComDias = Soldado & {
+  diasEscalados: { data: string; tipoDia: TipoDia; manual?: boolean }[];
+};
 
 const FUNCAO_META: Record<Funcao, { titulo: string; sub: string; icon: string }> = {
   piscineiro: {
@@ -34,8 +38,12 @@ export function EscalaView({
   porFuncao,
   hoje,
   meuSoldadoId,
+  isAdmin,
   totalEscalados,
   trocasNoPeriodo,
+  todosSoldados,
+  afastamentos,
+  overridesManuais,
 }: {
   view: "semana" | "mes";
   inicioISO: string;
@@ -43,10 +51,24 @@ export function EscalaView({
   porFuncao: Record<Funcao, SoldadoComDias[]>;
   hoje: Record<Funcao, ReturnType<typeof calcularEscaladoDoDia>>;
   meuSoldadoId: string | null;
+  isAdmin: boolean;
   totalEscalados: number;
   trocasNoPeriodo: number;
+  todosSoldados: Soldado[];
+  afastamentos: AfastamentoPeriodo[];
+  overridesManuais: OverrideEscala[];
 }) {
   const [apenasMinha, setApenasMinha] = useState(false);
+  const [avisoSemEscala, setAvisoSemEscala] = useState(false);
+  const [modalManual, setModalManual] = useState(false);
+
+  function handleToggleMinhaEscala() {
+    if (!meuSoldadoId) {
+      setAvisoSemEscala(true);
+      return;
+    }
+    setApenasMinha((v) => !v);
+  }
 
   const inicio = new Date(inicioISO + "T00:00:00");
   const hojeData = new Date();
@@ -150,12 +172,23 @@ export function EscalaView({
                 type="checkbox"
                 className="sr-only peer"
                 checked={apenasMinha}
-                disabled={!meuSoldadoId}
-                onChange={(e) => setApenasMinha(e.target.checked)}
+                readOnly
+                onClick={handleToggleMinhaEscala}
               />
               <div className="w-12 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary" />
             </label>
           </div>
+
+          {isAdmin && (
+            <button
+              type="button"
+              onClick={() => setModalManual(true)}
+              className="flex items-center justify-center gap-1.5 py-2.5 px-space-md bg-secondary-container text-on-secondary-container font-label-md text-label-md uppercase rounded-lg shadow-sm hover:opacity-90 transition-opacity"
+            >
+              <Icon name="edit_calendar" className="text-[18px]" />
+              Organizar Escala Manualmente
+            </button>
+          )}
         </div>
 
         {/* Legenda */}
@@ -273,7 +306,7 @@ export function EscalaView({
                             <div className="flex flex-col min-w-0">
                               <div className="flex items-center gap-1.5">
                                 <span className="font-label-md text-label-md uppercase text-on-surface font-bold truncate">
-                                  Sd. {soldado.nome_guerra}
+                                  {abreviacaoPatente(soldado.patente)}. {soldado.nome_guerra}
                                 </span>
                                 {isSelf && (
                                   <span className="px-1.5 py-0.2 bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm rounded uppercase font-semibold">
@@ -295,7 +328,10 @@ export function EscalaView({
                               key={d.data}
                               className="flex items-center gap-1 px-2 py-1 rounded bg-surface-container-high"
                             >
-                              <Icon name="calendar_today" className="text-[16px] text-on-surface" />
+                              <Icon
+                                name={d.manual ? "edit_calendar" : "calendar_today"}
+                                className={`text-[16px] ${d.manual ? "text-secondary" : "text-on-surface"}`}
+                              />
                               <span className="font-body-sm text-body-sm font-semibold text-on-surface">
                                 {formatarDataBR(d.data)}
                               </span>
@@ -342,6 +378,49 @@ export function EscalaView({
           </p>
         </div>
       </div>
+
+      {avisoSemEscala && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center px-gutter bg-inverse-surface/60 backdrop-blur-sm">
+          <div className="w-full max-w-sm bg-surface-container-lowest rounded-xl p-gutter shadow-2xl flex flex-col items-center gap-space-md text-center">
+            <Image
+              src="/brand/admin-continencia.png"
+              alt="Soldado prestando continência"
+              width={72}
+              height={72}
+              className="w-[72px] h-[72px] rounded-full object-cover shadow-md bg-surface-container-highest"
+            />
+            <div className="flex flex-col gap-1">
+              <span className="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">
+                Comunicação Oficial
+              </span>
+              <p className="font-body-md text-body-md text-on-surface leading-relaxed">
+                &ldquo;Permissão para falar, Senhor!{" "}
+                {isAdmin
+                  ? "Por Vossa Senhoria exercer a função de Administrador do Sistema e Secretário Administrativo, não consta escala de serviço atribuída em seu nome."
+                  : "Não consta escala de serviço atribuída ao seu nome de guerra."}
+                &rdquo;
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setAvisoSemEscala(false)}
+              className="w-full py-3 bg-primary text-on-primary font-label-md text-label-md uppercase rounded shadow-sm hover:bg-primary-container transition-colors"
+            >
+              Ciente
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isAdmin && (
+        <EscalaManualModal
+          open={modalManual}
+          onClose={() => setModalManual(false)}
+          todosSoldados={todosSoldados}
+          afastamentos={afastamentos}
+          overridesManuais={overridesManuais}
+        />
+      )}
     </div>
   );
 }

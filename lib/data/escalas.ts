@@ -32,3 +32,18 @@ export async function getEscalasNoPeriodo(dataInicio: string, dataFim: string): 
     .order("data", { ascending: true });
   return (data as EscalaServico[]) ?? [];
 }
+
+/**
+ * Todos os ajustes manuais/trocas já registrados (status diferente de
+ * 'normal') — usados para sobrepor o rodízio calculado automaticamente,
+ * tanto na escala geral quanto no calendário de organização manual.
+ */
+export async function getOverridesManuais(): Promise<EscalaServico[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("escalas_servico")
+    .select("*")
+    .in("status", ["troca", "substituicao"])
+    .order("data", { ascending: true });
+  return (data as EscalaServico[]) ?? [];
+}

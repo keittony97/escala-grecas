@@ -3,11 +3,15 @@ import { createClient } from "@/lib/supabase/server";
 import { getTodosSoldados } from "@/lib/data/soldados";
 import { getAfastamentosVigentesEFuturos } from "@/lib/data/afastamentos";
 import { getTodasTrocas } from "@/lib/data/trocas";
+import { getOverridesManuais } from "@/lib/data/escalas";
+import { getPerfilAtual } from "@/lib/data/perfil";
 import {
   getAtivosNaData,
   gerarEscalaPeriodo,
   calcularEscaladoDoDia,
+  aplicarOverrides,
   parseDateOnly,
+  type OverrideEscala,
 } from "@/lib/escala/engine";
 import { EscalaView, type SoldadoComDias } from "./escala-view";
 import type { Funcao } from "@/types/database";
@@ -34,20 +38,39 @@ export default async function EscalaPage({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [todosSoldados, afastamentos, trocas] = await Promise.all([
+  const [todosSoldados, afastamentos, trocas, perfil, overridesManuais] = await Promise.all([
     getTodosSoldados(),
     getAfastamentosVigentesEFuturos(),
     getTodasTrocas(),
+    getPerfilAtual(),
+    getOverridesManuais(),
   ]);
 
   const meuSoldado = todosSoldados.find((s) => s.perfil_id === user?.id) ?? null;
+  const soldadosPorId = new Map(todosSoldados.map((s) => [s.id, s]));
+  const overrides: OverrideEscala[] = overridesManuais.map((o) => ({
+    funcao: o.funcao,
+    data: o.data,
+    soldado_id: o.soldado_id,
+  }));
 
   const funcoes: Funcao[] = ["piscineiro", "permanencia"];
   const porFuncao: Record<Funcao, SoldadoComDias[]> = { piscineiro: [], permanencia: [] };
 
+  const hojeISO = formatISO(new Date(), { representation: "date" });
   const hojeCalc: Record<Funcao, ReturnType<typeof calcularEscaladoDoDia>> = {
-    piscineiro: calcularEscaladoDoDia(todosSoldados, afastamentos, "piscineiro", new Date()),
-    permanencia: calcularEscaladoDoDia(todosSoldados, afastamentos, "permanencia", new Date()),
+    piscineiro: aplicarOverrides(
+      [{ ...calcularEscaladoDoDia(todosSoldados, afastamentos, "piscineiro", new Date()), data: hojeISO }],
+      overrides,
+      "piscineiro",
+      soldadosPorId
+    )[0],
+    permanencia: aplicarOverrides(
+      [{ ...calcularEscaladoDoDia(todosSoldados, afastamentos, "permanencia", new Date()), data: hojeISO }],
+      overrides,
+      "permanencia",
+      soldadosPorId
+    )[0],
   };
 
   const diasDoPeriodo = eachDayOfInterval({ start: inicio, end: fim });
@@ -65,13 +88,14 @@ export default async function EscalaPage({
     const ativos = [...ativosPorId.values()].sort((a, b) =>
       a.data_entrada < b.data_entrada ? -1 : a.data_entrada > b.data_entrada ? 1 : 0
     );
-    const diasCalc = gerarEscalaPeriodo(todosSoldados, afastamentos, funcao, inicio, fim);
+    const diasCalcBase = gerarEscalaPeriodo(todosSoldados, afastamentos, funcao, inicio, fim);
+    const diasCalc = aplicarOverrides(diasCalcBase, overrides, funcao, soldadosPorId);
 
     porFuncao[funcao] = ativos.map((soldado) => ({
       ...soldado,
       diasEscalados: diasCalc
         .filter((d) => d.soldado?.id === soldado.id)
-        .map((d) => ({ data: d.data, tipoDia: d.tipoDia })),
+        .map((d) => ({ data: d.data, tipoDia: d.tipoDia, manual: d.manual ?? false })),
     }));
   }
 
@@ -89,8 +113,12 @@ export default async function EscalaPage({
       porFuncao={porFuncao}
       hoje={hojeCalc}
       meuSoldadoId={meuSoldado?.id ?? null}
+      isAdmin={perfil?.role === "admin"}
       totalEscalados={porFuncao.piscineiro.length + porFuncao.permanencia.length}
       trocasNoPeriodo={trocasNoPeriodo.length}
+      todosSoldados={todosSoldados}
+      afastamentos={afastamentos}
+      overridesManuais={overrides}
     />
   );
 }
