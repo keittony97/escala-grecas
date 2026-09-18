@@ -71,7 +71,7 @@ export default function LoginPage() {
             <span className="w-2 h-0.5 bg-secondary" />
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 max-w-xs">
-            Sistema Integrado de Escalas de Serviço de Guarnição e Rancho
+            Sistema Integrado de Escala de Serviços
           </p>
         </div>
 
@@ -157,8 +157,7 @@ export default function LoginPage() {
             </span>
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm leading-relaxed">
-            Uso exclusivo do efetivo militar do 6º BEC e clube GRECAS. O acesso não autorizado
-            constitui infração disciplinar militar.
+            Uso exclusivo do efetivo militar do 6º BEC e clube GRECAS.
           </p>
         </div>
       </div>
